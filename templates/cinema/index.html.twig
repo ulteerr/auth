@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if app.user %}
+        <div class="d-flex justify-content-center mb-1">
+            <a type="nav-link" class="btn btn-warning" href="{{ path('new_cinema') }}">Добавить фильм</a><br>
+        </div>
+        {% endif %}
+        {% for cinema in cinema %}
+            <div class="media d-flex">
+                <img class="img-media"
+                     src="{{ asset('uploads/img/' ~ cinema.img) }}"
+                     alt="img">
+                <div class="media-body ms-5">
+                    <a href="{{ path('cinema_show', {'slug': cinema.slug}) }}">{{ cinema.title }}</a><br><br>
+                    <span>{{ cinema.getCreatedAt() | date("d/m/Y") }}</span><br>
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if app.user %}
+        <div class="d-flex justify-content-center mb-1">
+            <a type="nav-link" class="btn btn-warning" href="{{ path('new_books') }}">Добавить книгу</a><br>
+        </div>
+        {% endif %}
+        {% for books in books %}
+            <div class="media d-flex">
+                <img class="img-media"
+                     src="{{ asset('uploads/img/' ~ books.img) }}"
+                     alt="Generic placeholder image">
+                <div class="media-body ms-5">
+                    <a href="{{ path('books_show', {'slug': books.slug}) }}">{{ books.title }}</a><br><br>
+                    <span>{{ books.getCreatedAt() | date("d/m/Y") }}</span><br>
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

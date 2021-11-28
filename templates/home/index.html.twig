@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h3>Последний добавленый фильм</h3>
+    </div>
+    {% for cinema in films %}
+        <div class="container">
+            <div class="media d-flex">
+                <img class="img-media"
+                     src="{{ asset('uploads/img/' ~ cinema.img) }}"
+                     alt="Generic placeholder image">
+                <div class="media-body ms-5">
+                    <a href="{{ path('cinema_show', {'slug': cinema.slug}) }}">{{ cinema.title }}</a><br><br>
+                    <span>{{ cinema.getCreatedAt() | date("d/m/Y") }}</span><br><hr>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

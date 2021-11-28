@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h5>Список пользователей</h5>
+        {% if users is empty%}
+            <div>
+                <p>Нету пользователей</p>
+            </div>
+        {% else %}
+            <h5 class="text-center">Пользователи</h5>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">id:</th>
+                    <th scope="col">Имя:</th>
+                    <th scope="col">Почта:</th>
+                    <th scope="col">Ссылка:</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username}}</td>
+                        <td>{{ user.email }}</td>
+                        <td><a href="{{ path('profileuser', {'id': user.id}) }}">Открыть</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

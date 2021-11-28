@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <br>
+    <div class="container col-sm-12">
+        <p>{{cinema.body}}</p>
+
+        {% if app.user == cinema.user %}
+        <a href="{{ path('cinema_edit', {'slug': cinema.slug}) }}">Редактировать</a>
+        <a href="{{ path('cinema_delete', {'slug': cinema.slug}) }}">Удалить</a>
+        {% endif %}
+        <span>{{ cinema.getCreatedAt() | date("m/d/Y") }}</span><br><hr>
+        <div class="container">
+            {% if app.user %}
+                {{ form_start(comment) }}
+                {{ form_row(comment.comment) }}
+                <button type="submit" class="btn btn-primary">Отправить</button>
+                {{ form_end(comment) }}
+            {% endif %}
+
+
+        </div>
+        {%  for comment in cinema.comments %}
+            <p>{{ comment.comment }}</p><hr>
+        {% endfor %}
+    </div>
+{% endblock %}
+

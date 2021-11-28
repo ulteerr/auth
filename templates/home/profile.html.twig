@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h5>Привет! {{ user.email }}</h5>
+        {% if films is empty and games is empty and books is empty%}
+        <div>
+            <p>У вас пока нет обзоров</p>
+        </div>
+        {% endif %}
+        {% if films is not empty %}
+        <h5 class="text-center">Фильмы</h5>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Изображение:</th>
+                <th scope="col">Название:</th>
+                <th scope="col">Описание:</th>
+                <th scope="col">Рейтинг:</th>
+                <th scope="col">Дата создания:</th>
+                <th scope="col">Редактировать:</th>
+                <th scope="col">Удалить:</th>
+                <th scope="col">Ссылка:</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for film in films %}
+                <tr>
+                    <td> <img class="img-media"
+                              src="{{ asset('uploads/img/' ~ film.img) }}"
+                              alt="img"></td>
+                    <td>{{ film.title }}</td>
+                    <td>{{ film.body | slice(0, 255) ~ '...' }}</td>
+                    <td>0</td>
+                    <td>{{ film.getCreatedAt() | date("d/m/Y") }}</td>
+                    <td><a href="{{ path('cinema_edit', {'slug': film.slug}) }}">Редактировать</a></td>
+                    <td><a href="{{ path('cinema_delete', {'slug': film.slug}) }}">Удалить</a></td>
+                    <td><a href="{{ path('cinema_show', {'slug': film.slug}) }}">Открыть</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if books is not empty %}
+        <h5 class="text-center">Книги</h5>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Изображение:</th>
+                <th scope="col">Название:</th>
+                <th scope="col">Описание:</th>
+                <th scope="col">Рейтинг:</th>
+                <th scope="col">Дата создания:</th>
+                <th scope="col">Редактировать:</th>
+                <th scope="col">Удалить:</th>
+                <th scope="col">Ссылка:</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for book in books %}
+                <tr>
+                    <td> <img class="img-media"
+                              src="{{ asset('uploads/img/' ~ book.img) }}"
+                              alt="img"></td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.body | slice(0, 255) ~ '...' }}</td>
+                    <td>0</td>
+                    <td>{{ book.getCreatedAt() | date("d/m/Y") }}</td>
+                    <td><a href="{{ path('games_edit', {'slug': book.slug}) }}">Редактировать</a></td>
+                    <td><a href="{{ path('games_delete', {'slug': book.slug}) }}">Удалить</a></td>
+                    <td><a href="{{ path('games_show', {'slug': book.slug}) }}">Открыть</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if games is not empty %}
+        <h5 class="text-center">Игры</h5>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Изображение:</th>
+                <th scope="col">Название:</th>
+                <th scope="col">Описание:</th>
+                <th scope="col">Рейтинг:</th>
+                <th scope="col">Дата создания:</th>
+                <th scope="col">Редактировать:</th>
+                <th scope="col">Удалить:</th>
+                <th scope="col">Ссылка:</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for game in games %}
+                <tr>
+                    <td> <img class="img-media"
+                              src="{{ asset('uploads/img/' ~ game.img) }}"
+                              alt="img"></td>
+                    <td>{{ game.title }}</td>
+                    <td>{{ game.body | slice(0, 255) ~ '...' }}</td>
+                    <td>0</td>
+                    <td>{{ game.getCreatedAt() | date("d/m/Y") }}</td>
+                    <td><a href="{{ path('games_edit', {'slug': game.slug}) }}">Редактировать</a></td>
+                    <td><a href="{{ path('games_delete', {'slug': game.slug}) }}">Удалить</a></td>
+                    <td><a href="{{ path('games_show', {'slug': game.slug}) }}">Открыть</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}

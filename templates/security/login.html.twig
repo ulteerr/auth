@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.message }}
+        </div>
+    {% endif %}
+    <div class="container">
+        <h3 class="text-center">Войти</h3>
+        <div class="d-flex justify-content-center m-2">
+            <a class="btn btn-info" href="{{ path('connect_google_start') }}">Войти через Google</a><br>
+            <a class="btn btn-info ms-2" href="{{ path('connect_github_start') }}">Войти через GitHub</a><br>
+        </div>
+        <div class="d-flex justify-content-center text-center">
+            <form method="post">
+                <div class="form-group">
+                    <label for="">Введите Почту:</label>
+                    <input type="text" name="_username" required="required" class="form-control"
+                           id="exampleInputEmail1">
+                </div>
+                <label for="">Введите Пароль:</label>
+                <div class="form-group">
+                    <input type="password" name="_password" required="required" class="form-control"
+                           id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary m-2">Войти</button>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            </form>
+        </div>
+    </div>
+{% endblock %}

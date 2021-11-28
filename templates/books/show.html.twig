@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <br>
+    <div class="container col-sm-12">
+        <p>{{books.body}}</p>
+
+        {% if app.user == books.user %}
+        <a href="{{ path('books_edit', {'slug': books.slug}) }}">Редактировать</a>
+        <a href="{{ path('books_delete', {'slug': books.slug}) }}">Удалить</a>
+        {% endif %}
+        <span>{{ books.getCreatedAt() | date("m/d/Y") }}</span><br><hr>
+        <div class="container">
+            {% if app.user %}
+                {{ form_start(comment) }}
+                {{ form_row(comment.comment) }}
+                <button type="submit" class="btn btn-primary">Отправить</button>
+                {{ form_end(comment) }}
+            {% endif %}
+
+
+        </div>
+        {%  for comment in books.comments %}
+            <p>{{ comment.comment }}</p><hr>
+        {% endfor %}
+    </div>
+{% endblock %}
+
