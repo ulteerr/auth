@@ -1,1 +1,11 @@
-
+html.dark, .dark body {
+    background: #000;
+    color: #fff;
+}
+.dark h4{
+    color: #FFFFFF;
+}
+.img-media {
+    width: 60px;
+    height: 60px;
+}

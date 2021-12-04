@@ -45,7 +45,7 @@ class Games
     /**
      * @var Comment[]
      *
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="cinema")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="games")
      */
     private $comments;
     /**
@@ -135,7 +135,7 @@ class Games
 
     public function addComment(Comment $comment): self
     {
-        $comment->setBooks($this);
+        $comment->setGames($this);
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
         }

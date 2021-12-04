@@ -85,15 +85,25 @@ class Comment
     /**
      * @param string $content
      * @param User $user
-     * @param Post $post
+     * @param Cinema $cinema
+     * @param Books $books
+     * @param Games $games
      *
      * @return Comment
      */
-    public static function create(string $content, User $user, Post $post): Comment
+    public static function create(
+        string $content,
+        User $user,
+        Cinema $cinema,
+        Books $books,
+        Games $games
+    ): Comment
     {
         $comment = new self();
         $comment->comment = $content;
-        $comment->post = $post;
+        $comment->cinema= $cinema;
+        $comment->games = $games;
+        $comment->books = $books;
         $comment->user = $user;
 
         return $comment;
@@ -115,21 +125,6 @@ class Comment
         return $this->user;
     }
 
-    /**
-     * @return Post
-     */
-    public function getPost(): Post
-    {
-        return $this->post;
-    }
-
-    /**
-     * @param Post $post
-     */
-    public function setPost(Post $post)
-    {
-        $this->post = $post;
-    }
     /**
      * @return Cinema
      */

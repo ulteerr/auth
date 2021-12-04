@@ -8,8 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class CinemaType extends AbstractType
 {
@@ -22,10 +22,13 @@ class CinemaType extends AbstractType
             ->add('body', TextareaType::class,[
                 'label' =>'Введите описание:'
             ])
-            ->add('img', FileType::class, [
+            ->add('img', DropzoneType::class, [
+                'attr' => [
+                    'placeholder' => 'Загрузить изображение',
+                ],
                 'label' => 'Загрузить изображение:',
-                'mapped' => false,
-                'required' => false,
+
+
                 'constraints' => [
                     new File([
                         'maxSize' => '10240k',

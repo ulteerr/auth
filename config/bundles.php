@@ -17,4 +17,5 @@ return [
     Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
+    Symfony\UX\Dropzone\DropzoneBundle::class => ['all' => true],
 ];

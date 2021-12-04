@@ -4,13 +4,14 @@
 
     <br>
     <div class="container col-sm-12">
-        <p>{{games.body}}</p>
+        <p>{{ games.body }}</p>
 
         {% if app.user == games.user %}
-        <a href="{{ path('games_edit', {'slug': games.slug}) }}">Редактировать</a>
-        <a href="{{ path('games_delete', {'slug': games.slug}) }}">Удалить</a>
+            <a href="{{ path('games_edit', {'slug': games.slug}) }}">Редактировать</a>
+            <a href="{{ path('games_delete', {'slug': games.slug}) }}">Удалить</a>
         {% endif %}
-        <span>{{ cinema.getCreatedAt() | date("m/d/Y") }}</span><br><hr>
+        <span>{{ games.getCreatedAt() | date("d/m/Y") }}</span><br>
+        <hr>
         <div class="container">
             {% if app.user %}
                 {{ form_start(comment) }}
@@ -21,9 +22,23 @@
 
 
         </div>
-        {%  for comment in books.comments %}
-            <p>{{ comment.comment }}</p><hr>
-        {% endfor %}
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Комментарии</h2>
+            </div>
+            {% for comment in games.comments %}
+                <div class="col-6">
+                    <div class="comments-field alert alert-primary">
+                        <p>{{ comment.comment }}</p>
+                        <hr>
+                        <span>{{ comment.getCreatedAt() | date("d/m/Y") }}</span><br>
+                        <span></span><br>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+
+    {% endfor %}
 {% endblock %}
 

@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} Регистрация {% endblock %}
-
+{% block js %}
+    <script src="{{ asset('build/js/registr.js') }}" defer></script>
+{% endblock %}
 {% block body %}
 
     <div class="container">

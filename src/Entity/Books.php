@@ -45,7 +45,7 @@ class Books
     /**
      * @var Comment[]
      *
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="cinema")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="books")
      */
     private $comments;
     /**

@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Books;
 use App\Entity\Games;
 use App\Form\BooksType;
+use App\Form\GamesType;
 use App\Repository\BooksRepository;
+use App\Repository\CommentRepository;
 use App\Repository\GamesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,17 +24,18 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class GamesController extends AbstractController
 {
-    public function __construct(GamesRepository $gamesRepository)
+    public function __construct(GamesRepository $gamesRepository, CommentRepository $commentRepository)
     {
         $this->gamesRepository = $gamesRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     #[Route('/games', name: 'games')]
     public function index(): Response
     {
-        $books = $this->gamesRepository->findBy(array(),array('created_at'=>'desc'));
+        $games = $this->gamesRepository->findBy(array(),array('created_at'=>'desc'));
         return $this->render('games/index.html.twig', [
-            'games' => $books,
+            'games' => $games,
         ]);
     }
 
@@ -46,7 +49,7 @@ class GamesController extends AbstractController
         $user = $this->getUser();
         $games= new Games();
         $games->setUser($user);
-        $form = $this->createForm(BooksType::class, $games);
+        $form = $this->createForm(GamesType::class, $games);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -102,8 +105,10 @@ class GamesController extends AbstractController
 
             return $this->redirectToRoute('games_show', ['slug' => $games->getSlug()]);
         }
+        $comments = $this->commentRepository->findBy(array(),array('id'=>'desc'));
 
         return $this->render('games/show.html.twig', [
+            'usercomment' => $comments,
             'games' => $games,
             'comment' => $form->createView()
         ]);

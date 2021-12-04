@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+ {% block js %}
+     <script src="{{ asset('build/js/dcinema.js') }}" defer></script>
+ {% endblock %}
 
 {% block body %}
     <div class="container">

@@ -5,18 +5,43 @@
 {% block body %}
     <div class="container">
         <h3>Последний добавленый фильм</h3>
-    </div>
-    {% for cinema in films %}
-        <div class="container">
+        {% for cinema in films %}
             <div class="media d-flex">
                 <img class="img-media"
                      src="{{ asset('uploads/img/' ~ cinema.img) }}"
                      alt="Generic placeholder image">
                 <div class="media-body ms-5">
                     <a href="{{ path('cinema_show', {'slug': cinema.slug}) }}">{{ cinema.title }}</a><br><br>
-                    <span>{{ cinema.getCreatedAt() | date("d/m/Y") }}</span><br><hr>
+                    <span>{{ cinema.getCreatedAt() | date("d/m/Y") }}</span><br>
+                    <hr>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+        <h3>Последняя добавленая книга</h3>
+        {% for book in books %}
+            <div class="media d-flex">
+                <img class="img-media"
+                     src="{{ asset('uploads/img/' ~ book.img) }}"
+                     alt="Generic placeholder image">
+                <div class="media-body ms-5">
+                    <a href="{{ path('books_show', {'slug': book.slug}) }}">{{ book.title }}</a><br><br>
+                    <span>{{ book.getCreatedAt() | date("d/m/Y") }}</span><br>
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+        <h3>Последняя добавленая игра</h3>
+        {% for game in games %}
+            <div class="media d-flex">
+                <img class="img-media"
+                     src="{{ asset('uploads/img/' ~ game.img) }}"
+                     alt="Generic placeholder image">
+                <div class="media-body ms-5">
+                    <a href="{{ path('games_show', {'slug': game.slug}) }}">{{ game.title }}</a><br><br>
+                    <span>{{ game.getCreatedAt() | date("d/m/Y") }}</span><br>
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -6,7 +6,7 @@
     <div class="container">
         {% if app.user %}
             <div class="d-flex justify-content-center mb-1">
-                <a type="nav-link" class="btn btn-warning" href="{{ path('new_games') }}">Добавить игру</a><br>
+                <a type="nav-link" class="btn btn-warning m-3" href="{{ path('new_games') }}">Добавить игру</a><br>
             </div>
         {% endif %}
         {% for games in games %}
