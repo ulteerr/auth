@@ -28,6 +28,7 @@ security:
         authenticators:
           - App\Security\OAuthGoogleAuthenticator
           - App\Security\OAuthGithubAuthenticator
+          - App\Security\LoginAuthenticator
       logout:
         path: logout
 #  access_control:

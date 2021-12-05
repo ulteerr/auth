@@ -3,19 +3,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Security\UserProvider;
+
+use App\Security\OAuthGoogleAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Transport\Smtp\Auth\AuthenticatorInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
-use App\Security\OAuthGoogleAuthenticator;
 use App\Form\UserType;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 
 class RegisterController extends AbstractController
 {
@@ -24,6 +23,8 @@ class RegisterController extends AbstractController
     public function register(
         UserPasswordEncoderInterface $passwordEncoder,
         Request                      $request,
+        GuardAuthenticatorHandler    $guardHandler,
+        OAuthGoogleAuthenticator     $authenticator,
     )
     {
         $user = $this->getUser();
@@ -48,10 +49,17 @@ class RegisterController extends AbstractController
 
                 $em->persist($user);
                 $em->flush();
+                return $guardHandler->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $authenticator,
+                    'main'
+                );
             }
 
             return $this->render('register/index.html.twig', [
                 'form' => $form->createView(),
+
             ]);
         }
     }

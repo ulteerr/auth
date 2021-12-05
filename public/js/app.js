@@ -1,0 +1,1 @@
+document.getElementById('user_email').value = "";
