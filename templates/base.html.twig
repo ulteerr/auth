@@ -21,47 +21,49 @@
 <body>
 {% block header %}
     <div class="container">
-        <header class="p-3 mb-3 border-bottom">
-            <div class="d-flex align-items-center justify-content-between">
-                <a href="{{ path('home') }}"
-                   class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                    <div class="Logo">
-                        <h4>I.authority</h4>
+        <div class="row">
+            <header class="p-3 mb-3 border-bottom col-md-6 col-xl-12">
+                <div class="d-flex align-items-center justify-content-between">
+                    <a href="{{ path('home') }}"
+                       class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                        <div class="Logo">
+                            <h4>I.authority</h4>
+                        </div>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto px-3 mx-5 justify-content-center mb-0">
+                        <li><a href="{{ path('books') }}" class="nav-link px-3 text-secondary">Книги</a></li>
+                        <li><a href="{{ path('cinema') }}" class="nav-link px-3 text-secondary">Кино</a></li>
+                        <li><a href="{{ path('games') }}" class="nav-link px-3 text-secondary">Игры</a></li>
+                    </ul>
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex"
+                          action="{{ path('blog_search') }}" method="get">
+                        <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search" name="q">
+                        <button type="submit" class="btn btn-secondary mx-3">Найти</button>
+                    </form>
+
+                    <div class="d-flex">
+                        {% if app.user %}
+                            <a type="nav-link" class="btn btn-warning me-2"
+                               href="{{ path('profile', {'id': app.user.id}) }}">Профиль</a>
+                            <a type="nav-link" class="btn btn-danger" href="{{ path('logout') }}">Выйти</a>
+                        {% else %}
+                            <a type="nav-link" class="btn btn-light me-2" href="{{ path('login') }}">Войти</a>
+                            <a type="nav-link" class="btn btn-warning" href="{{ path('register') }}">Регистрация</a>
+                        {% endif %}
                     </div>
-                </a>
-
-                <ul class="nav col-12 col-lg-auto px-3 mx-5 justify-content-center mb-0">
-                    <li><a href="{{ path('books') }}" class="nav-link px-3 text-secondary">Книги</a></li>
-                    <li><a href="{{ path('cinema') }}" class="nav-link px-3 text-secondary">Кино</a></li>
-                    <li><a href="{{ path('games') }}" class="nav-link px-3 text-secondary">Игры</a></li>
-                </ul>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex"
-                      action="{{ path('blog_search') }}" method="get">
-                    <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search" name="q">
-                    <button type="submit" class="btn btn-secondary mx-3">Найти</button>
-                </form>
-
-                <div class="d-flex">
-                    {% if app.user %}
-                        <a type="nav-link" class="btn btn-warning me-2"
-                           href="{{ path('profile', {'id': app.user.id}) }}">Профиль</a>
-                        <a type="nav-link" class="btn btn-danger" href="{{ path('logout') }}">Выйти</a>
-                    {% else %}
-                        <a type="nav-link" class="btn btn-light me-2" href="{{ path('login') }}">Войти</a>
-                        <a type="nav-link" class="btn btn-warning" href="{{ path('register') }}">Регистрация</a>
-                    {% endif %}
                 </div>
+            </header>
+            {#        {{ dump(app.user.roles.0) }} #}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a type="nav-link" class="btn btn-warning me-2"
+                   href="{{ path('admin') }}">Админ-панель</a>
+            {% endif %}
+            <div class="under d-flex justify-content-center m-6">
+                <a type="nav-link" class="themetoggle btn btn-dark" href="#">Тема
+                    <span class="material-icons">wb_sunny</span></a>
+                </a>
             </div>
-        </header>
-{#        {{ dump(app.user.roles.0) }}#}
-        {% if is_granted('ROLE_ADMIN') %}
-            <a type="nav-link" class="btn btn-warning me-2"
-               href="{{ path('admin') }}">Админ-панель</a>
-        {% endif %}
-        <div class="under d-flex justify-content-center m-6">
-            <a type="nav-link" class="themetoggle btn btn-dark" href="#">Тема
-                <span class="material-icons">wb_sunny</span></a>
-            </a>
         </div>
     </div>
 {% endblock %}
