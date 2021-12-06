@@ -53,6 +53,11 @@
                 </div>
             </div>
         </header>
+{#        {{ dump(app.user.roles.0) }}#}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a type="nav-link" class="btn btn-warning me-2"
+               href="{{ path('admin') }}">Админ-панель</a>
+        {% endif %}
         <div class="under d-flex justify-content-center m-6">
             <a type="nav-link" class="themetoggle btn btn-dark" href="#">Тема
                 <span class="material-icons">wb_sunny</span></a>
