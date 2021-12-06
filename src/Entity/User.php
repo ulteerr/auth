@@ -83,16 +83,24 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
      */
     private $comments;
-    public function __construct(
 
-    ) {
+    public function __construct(
+        $clientId = null,
+        string $email = '',
+        string $username = '',
+    )
+    {
+        $this->clientId = $clientId;
+        $this->email = $email;
+        $this->username = $username;
         $this->roles = [self::ROLE_USER];
         $this->comments = new ArrayCollection();
     }
+
     /**
      * @return array
      */
-    public function getRoles() : array
+    public function getRoles(): array
     {
         $roles = $this->roles;
         $roles[] = 'ROLE_USER';
@@ -111,6 +119,7 @@ class User implements UserInterface
 
         return $this;
     }
+
     /**
      * @param int $clientId
      * @param string $email
@@ -131,6 +140,7 @@ class User implements UserInterface
             [self::ROLE_USER]
         );
     }
+
     public static function fromGoogleRequest(
         string $clientId,
         string $email,
@@ -145,7 +155,6 @@ class User implements UserInterface
             [self::ROLE_USER]
         );
     }
-
 
 
     /**
@@ -208,6 +217,7 @@ class User implements UserInterface
 
         return $this;
     }
+
     /**
      * @param string $email
      *
@@ -227,6 +237,7 @@ class User implements UserInterface
     {
         return $this->id;
     }
+
     /**
      * @return int
      */

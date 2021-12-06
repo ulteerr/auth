@@ -3,36 +3,38 @@
 {% block title %}Результаты поиска{% endblock %}
 
 {% block body %}
-    {% if cinema is empty and games is empty and books is empty%}
-    <div>
-        <p>Ничего не найденно!</p>
+    <div class="container">
+        {% if cinema is empty and games is empty and books is empty %}
+            <div>
+                <p>Ничего не найденно!</p>
+            </div>
+        {% endif %}
+        {% for films in cinema %}
+            <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <a href="{{ path('cinema_show', {'slug': films.slug}) }}">{{ films.title }}</a>
+                    {{ films.body | slice(0, 255) ~ '...' }}
+                </p>
+            </div>
+        {% endfor %}
+        {% for game in games %}
+            <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <a href="{{ path('games_show', {'slug': game.slug}) }}">{{ game.title }}</a>
+                    {{ game.body | slice(0, 255) ~ '...' }}
+                </p>
+            </div>
+        {% endfor %}
+        {% for book in books %}
+            <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <a href="{{ path('books_show', {'slug': book.slug}) }}">{{ book.title }}</a>
+                    {{ book.body | slice(0, 255) ~ '...' }}
+                </p>
+            </div>
+        {% endfor %}
+        <small class="d-block text-right mt-3">
+            <a href="{{ path('home') }}">На главную</a>
+        </small>
     </div>
-    {% endif %}
-    {% for films in cinema %}
-        <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <a href="{{ path('cinema_show', {'slug': films.slug}) }}">{{ films.title }}</a>
-                {{ films.body | slice(0, 255) ~ '...' }}
-            </p>
-        </div>
-    {% endfor %}
-    {% for game in games %}
-        <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <a href="{{ path('games_show', {'slug': game.slug}) }}">{{ game.title }}</a>
-                {{ game.body | slice(0, 255) ~ '...' }}
-            </p>
-        </div>
-    {% endfor %}
-    {% for book in books %}
-        <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <a href="{{ path('books_show', {'slug': book.slug}) }}">{{ book.title }}</a>
-                {{ book.body | slice(0, 255) ~ '...' }}
-            </p>
-        </div>
-    {% endfor %}
-<small class="d-block text-right mt-3">
-    <a href="{{ path('home') }}">На главную</a>
-</small>
 {% endblock %}
