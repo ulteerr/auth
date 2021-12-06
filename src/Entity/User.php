@@ -83,22 +83,9 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
      */
     private $comments;
-    /**
-     * @param $clientId
-     * @param string $email
-     * @param string $username
-     */
     public function __construct(
-        $clientId,
-        string $email,
-        string $username,
-
-
 
     ) {
-        $this->clientId = $clientId;
-        $this->email = $email;
-        $this->username = $username;
         $this->roles = [self::ROLE_USER];
         $this->comments = new ArrayCollection();
     }
@@ -108,7 +95,6 @@ class User implements UserInterface
     public function getRoles() : array
     {
         $roles = $this->roles;
-        // гарантировать каждому пользователю хотя бы ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);

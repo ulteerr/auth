@@ -31,7 +31,7 @@ class RegisterController extends AbstractController
         if ($user) {
             return $this->redirectToRoute('profile', ['id' => $this->getUser()->getId()]);
         } else {
-            $user = new User (null, 'null', 'null');
+            $user = new User ();
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
